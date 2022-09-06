@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+Copyright 2019 Google LLC.
+SPDX-License-Identifier: Apache-2.0
+-->
+<html lang="en">
+  <head>
+    <title>Stale-while-revalidate Demo</title>
+    <meta name="description" content="A demo of Cache-control: stale-while-revalidate">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>
+      Stale-while-revalidate Demo
+    </h1>
+    <p>
+      It's (approximately!) <span id="minutes"></span> minutes past the hour.
+    </p>
+    <button id="refresh">
+      Refresh Minutes
+    </button>
+    <details>
+      <summary>View JavaScript</summary>
+      <script class="visible">const minutesEl = document.getElementById('minutes');
+const refreshEl = document.getElementById('refresh');
+
+async function updateMinutes() {
+  const response = await fetch('/api/minutes');
+  const responseBody = await response.json();
+  minutesEl.textContent = responseBody.minutes;
+}
+
+updateMinutes();
+refreshEl.addEventListener('click', updateMinutes);</script>
+    </details>
+  </body>
+</html>
